@@ -5,13 +5,11 @@ from torchvision import datasets, models
 from torch import nn, optim
 from torch.utils.data import DataLoader, random_split
 
-# === PATH DAN SETUP ===
 data_dir = r"C:\Users\wulan\CarDetection\dataset_google_icrawler"
 save_path = os.path.join(data_dir, "resnet50_carclassifier_best.pth")
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 print(f"Using device: {device}")
 
-# === TRANSFORMASI ===
 transform = transforms.Compose([
     transforms.Resize((224, 224)),
     transforms.ToTensor(),
@@ -19,7 +17,6 @@ transform = transforms.Compose([
                          [0.229, 0.224, 0.225])
 ])
 
-# === LOAD DATASET & SPLIT TRAIN/VAL ===
 full_dataset = datasets.ImageFolder(data_dir, transform=transform)
 num_classes = len(full_dataset.classes)
 train_size = int(0.8 * len(full_dataset))
@@ -29,19 +26,19 @@ train_dataset, val_dataset = random_split(full_dataset, [train_size, val_size])
 train_loader = DataLoader(train_dataset, batch_size=64, shuffle=True)
 val_loader = DataLoader(val_dataset, batch_size=64, shuffle=False)
 
-# === LOAD MODEL RESNET50 ===
+# LOAD MODEL RESNET50
 model = models.resnet50(pretrained=True)
 for param in model.parameters():
     param.requires_grad = False
 model.fc = nn.Linear(model.fc.in_features, num_classes)
 model = model.to(device)
 
-# === SETUP OPTIMIZER & LOSS ===
+# SETUP OPTIMIZER & LOSS
 criterion = nn.CrossEntropyLoss()
 optimizer = optim.Adam(model.fc.parameters(), lr=0.001)
 best_acc = 0.0
 
-# === TRAINING LOOP ===
+# TRAINING LOOP
 epochs = 10
 for epoch in range(epochs):
     model.train()
@@ -63,7 +60,7 @@ for epoch in range(epochs):
     train_acc = correct / total
     avg_loss = running_loss / total
 
-    # === VALIDASI ===
+    # VALIDASI
     model.eval()
     correct_val, total_val = 0, 0
     with torch.no_grad():
@@ -84,4 +81,4 @@ for epoch in range(epochs):
         torch.save(model.state_dict(), save_path)
         print(f"✔ Best model saved at epoch {epoch+1}")
 
-print(f"\n✅ Training selesai. Model terbaik disimpan di: {save_path}")
+print(f"\n Training selesai. Model terbaik disimpan di: {save_path}")
