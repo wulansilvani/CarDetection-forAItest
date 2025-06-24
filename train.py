@@ -1,14 +1,11 @@
 import os
 import subprocess
 import torch
-
-# Cek apakah GPU tersedia dan informasi GPU
 if torch.cuda.is_available():
     print("GPU is available:", torch.cuda.get_device_name(0))
 else:
     print("GPU not available. Please check your CUDA installation.")
 
-# Set direktori YOLOv5
 yolov5_dir = r"C:\Users\wulan\yolov5"
 data_yaml = r"C:\Users\wulan\yolov5\bdd100k.yaml"
 log_path = r"C:\Users\wulan\CarDetection\train_log_7k.txt"
