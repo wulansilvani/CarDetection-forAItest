@@ -1,7 +1,6 @@
 import os
 import json
 
-# Path ke folder label JSON BDD100K
 label_base_dir = r"C:\Users\wulan\CarDetection\bdd100k_labels\100k"
 output_base_dir = r"C:\Users\wulan\CarDetection\yolo_labels"
 image_width = 1280
@@ -9,7 +8,7 @@ image_height = 720
 
 
 target_category = "car"
-class_id = 0  # class id untuk YOLO, misalnya 'car' = 0
+class_id = 0  # class id for YOLO, 0 for cars
 
 def convert_box(x1, y1, x2, y2, img_w, img_h):
     x_center = (x1 + x2) / 2.0 / img_w
@@ -49,7 +48,7 @@ def process_json_folder(subset):
             yolo_line = f"{class_id} {' '.join([f'{x:.6f}' for x in bbox])}"
             yolo_lines.append(yolo_line)
 
-        # Simpan file .txt dengan nama yang sama
+     a
         output_txt = os.path.join(output_folder, f"{data['name']}.txt")
         with open(output_txt, "w") as out_f:
             out_f.write("\n".join(yolo_lines))
