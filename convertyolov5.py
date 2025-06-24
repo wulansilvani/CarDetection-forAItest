@@ -59,4 +59,4 @@ def process_json_folder(subset):
 for subset in ["train", "val", "test"]:
     process_json_folder(subset)
 
-print("✅ All labels converted to YOLO format.")
+print("All labels converted to YOLO format.")
