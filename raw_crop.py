@@ -48,18 +48,15 @@ while cap.isOpened():
     if not success:
         break
 
-    # Preprocess frame
     img0 = frame.copy()
     img = letterbox(img0, img_size, stride=32, auto=True)[0]
     img = img[:, :, ::-1].transpose(2, 0, 1)  # BGR to RGB, HWC to CHW
     img = torch.from_numpy(np.ascontiguousarray(img)).to(device).float() / 255.0
     img = img.unsqueeze(0)
 
-    # Inference
     pred = model(img)
     pred = non_max_suppression(pred, conf_thres, iou_thres)[0]
 
-    # Process detections
     if pred is not None and len(pred):
         pred[:, :4] = scale_coords(img.shape[2:], pred[:, :4], img0.shape)
         for i, (*xyxy, conf, cls) in enumerate(pred):
