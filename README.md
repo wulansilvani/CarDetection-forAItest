@@ -19,4 +19,15 @@ The classification model supports the following Indonesian car types:
 - Minibus
 - Truck
 
-
+## Note
+| Filename                  | Description                                                                                                                                                                                           |
+| ------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **`convertyolov5.py`**    | Script to convert BDD100K JSON annotation format into YOLOv5 `.txt` format for car and motorcycle classes. Used to generate labels for object detection training.                                     |
+| **`predict_resnet.py`**   | Performs classification on cropped vehicle images using a trained ResNet50 model. Annotates images with predicted class and confidence, and routes low-confidence predictions to an "Unknown" folder. |
+| **`raw_crop.py`**         | Extracts and crops detected vehicles from a CCTV video based on YOLOv5 detection results. Saves each cropped object for classification purposes.                                                      |
+| **`scrape_icrawler.py`**  | Downloads vehicle images from Google Images using `icrawler`. Organizes them by class folders (MPV, SUV, Sedan, etc.) to build a classification dataset.                                              |
+| **`testing_video.py`**    | Runs object detection (`best.pt`) on a test video (`traffic_test.mp4`), draws bounding boxes, and saves the result as a new annotated video.                                                          |
+| **`train.py`**            | Used to launch training of the YOLOv5 detection model using the converted dataset.                                                                                                                    |
+| **`train_log_7k.txt`**    | Training log file from the YOLOv5 training process using a subset of 7k images. Stores epoch results, metrics, and notes.                                                                             |
+| **`train_resnet.py`**     | Trains a ResNet50 classifier using image data stored in subfolders. Fine-tunes the model to classify vehicle types (MPV, SUV, etc.) and saves the best-performing model.                              |
+| **`validate_dataset.py`** | Checks the dataset folder structure and counts number of images per class. Useful to ensure proper dataset formatting before training classification model.                                           |
