@@ -2,6 +2,8 @@
 
 This repository contains the full implementation of a Car Detection and Classification system developed as part of the ISLAB Technical AI Test 2025. The goal of this project is to detect multiple cars in a video and classify each detected car into a specific category such as MPV, Sedan, SUV, etc.
 
+Output Car Detection: https://drive.google.com/drive/folders/1EV80CM_AOztz6ljPNuC5cG4PV2iHuA0u?usp=drive_link
+
 ## Project Overview
 
 This system consists of two main components:
